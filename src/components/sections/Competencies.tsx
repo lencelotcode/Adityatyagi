@@ -1,38 +1,8 @@
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
+import { motion } from "framer-motion";
 
 export default function Competencies() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!sectionRef.current || !gridRef.current) return;
-
-    const cards = gridRef.current.querySelectorAll(".bento-card");
-
-    const ctx = gsap.context(() => {
-      gsap.from(cards, {
-        y: 40,
-        opacity: 0,
-        stagger: 0.12,
-        duration: 0.75,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: gridRef.current,
-          start: "top 80%",
-          toggleActions: "play none none none",
-        },
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <section ref={sectionRef} id="features" className="bg-white py-24 sm:py-32 px-6 lg:px-12 border-b-2 border-black overflow-hidden">
+    <section id="features" className="bg-white py-24 sm:py-32 px-6 lg:px-12 border-b-2 border-black">
       <div className="container mx-auto max-w-[1240px]">
         
         {/* Section Header */}
@@ -41,21 +11,31 @@ export default function Competencies() {
             <div className="inline-block bg-[#FFE730] border-2 border-black px-3.5 py-1 text-xs font-mono font-bold uppercase shadow-[2px_2px_0px_0px_black] mb-3">
               Core Pillars
             </div>
-            <h2 className="font-display font-black text-4xl sm:text-5xl lg:text-6xl tracking-tight text-black uppercase leading-none">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="font-display font-black text-4xl sm:text-5xl lg:text-6xl tracking-tight text-black uppercase leading-none"
+            >
               FINANCIAL <span className="text-highlight">COMPETENCIES</span>
-            </h2>
+            </motion.h2>
           </div>
           <p className="font-mono text-xs sm:text-sm text-gray-600 max-w-sm uppercase font-semibold">
             // Bridging precision accounting operations with forward-looking data analytics.
           </p>
         </div>
 
-        {/* Neo-brutalist Bento Grid with GSAP ScrollTrigger */}
+        {/* Neo-brutalist Bento Grid */}
         <div className="relative">
-          <div ref={gridRef} className="grid grid-cols-1 md:grid-cols-12 gap-0 overflow-hidden bg-black border-2 border-black shadow-[6px_8px_0px_0px_black]">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-0 overflow-hidden bg-black border-2 border-black shadow-[6px_8px_0px_0px_black]">
             
             {/* Card 1: Ledger Reconciliation & Auditing (Col 7) */}
-            <div className="bento-card md:col-span-7 border border-black p-6 sm:p-8 lg:p-10 flex flex-col justify-between gap-8 bg-white rounded-bl-[28px] rounded-br-[28px] md:rounded-bl-none md:rounded-br-[28px] transition-transform duration-200 hover:-translate-y-0.5">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="md:col-span-7 border border-black p-6 sm:p-8 lg:p-10 flex flex-col justify-between gap-8 bg-white rounded-bl-[28px] rounded-br-[28px] md:rounded-bl-none md:rounded-br-[28px]"
+            >
               <div className="flex items-center justify-between">
                 <div className="w-12 h-12 rounded-full bg-highlight border-2 border-black flex items-center justify-center font-display font-black text-white shadow-[2px_2px_0px_0px_black]">
                   01
@@ -87,10 +67,16 @@ export default function Competencies() {
                   </span>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Card 2: Variance & Budget Modeling (Col 5) */}
-            <div className="bento-card md:col-span-5 border border-black p-6 sm:p-8 lg:p-10 flex flex-col justify-between gap-8 bg-white rounded-[28px] md:rounded-none md:rounded-bl-[28px] -mt-[1px] md:mt-0 md:-ml-[1px] transition-transform duration-200 hover:-translate-y-0.5">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="md:col-span-5 border border-black p-6 sm:p-8 lg:p-10 flex flex-col justify-between gap-8 bg-white rounded-[28px] md:rounded-none md:rounded-bl-[28px] -mt-[1px] md:mt-0 md:-ml-[1px]"
+            >
               <div className="flex items-center justify-between">
                 <div className="w-12 h-12 rounded-full bg-[#FFE730] border-2 border-black flex items-center justify-center font-display font-black text-black shadow-[2px_2px_0px_0px_black]">
                   02
@@ -115,10 +101,16 @@ export default function Competencies() {
                   98.4% On-Target
                 </span>
               </div>
-            </div>
+            </motion.div>
 
             {/* Card 3: Invoicing & Operations (Col 5) */}
-            <div className="bento-card md:col-span-5 border border-black p-6 sm:p-8 lg:p-10 flex flex-col justify-between gap-8 bg-white rounded-[28px] md:rounded-none md:rounded-tr-[28px] -mt-[1px] md:-mt-[1px] transition-transform duration-200 hover:-translate-y-0.5">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+              className="md:col-span-5 border border-black p-6 sm:p-8 lg:p-10 flex flex-col justify-between gap-8 bg-white rounded-[28px] md:rounded-none md:rounded-tr-[28px] -mt-[1px] md:-mt-[1px]"
+            >
               <div className="flex items-center justify-between">
                 <div className="w-12 h-12 rounded-full bg-[#F9D4F4] border-2 border-black flex items-center justify-center font-display font-black text-black shadow-[2px_2px_0px_0px_black]">
                   03
@@ -141,10 +133,16 @@ export default function Competencies() {
                 <span className="w-2 h-2 rounded-full bg-black" />
                 <span>Zero Billing Disputes · Prompt AR Turnover</span>
               </div>
-            </div>
+            </motion.div>
 
             {/* Card 4: Power BI & Analytics (Col 7) */}
-            <div className="bento-card md:col-span-7 border border-black p-6 sm:p-8 lg:p-10 flex flex-col justify-between gap-8 bg-white rounded-tl-[28px] rounded-tr-[28px] md:rounded-tr-none md:rounded-tl-[28px] -mt-[1px] md:-mt-[1px] md:-ml-[1px] transition-transform duration-200 hover:-translate-y-0.5">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+              className="md:col-span-7 border border-black p-6 sm:p-8 lg:p-10 flex flex-col justify-between gap-8 bg-white rounded-tl-[28px] rounded-tr-[28px] md:rounded-tr-none md:rounded-tl-[28px] -mt-[1px] md:-mt-[1px] md:-ml-[1px]"
+            >
               <div className="flex items-center justify-between">
                 <div className="w-12 h-12 rounded-full bg-[#B8FF00] border-2 border-black flex items-center justify-center font-display font-black text-black shadow-[2px_2px_0px_0px_black]">
                   04
@@ -173,7 +171,7 @@ export default function Competencies() {
                   <div className="bg-highlight h-full w-[78%]" />
                 </div>
               </div>
-            </div>
+            </motion.div>
 
           </div>
         </div>

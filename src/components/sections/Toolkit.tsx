@@ -1,8 +1,4 @@
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
+import { motion } from "framer-motion";
 
 interface CredentialItem {
   group: string;
@@ -91,34 +87,8 @@ const credentials: CredentialItem[] = [
 ];
 
 export default function Toolkit() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!sectionRef.current || !gridRef.current) return;
-
-    const cards = gridRef.current.querySelectorAll(".toolkit-card");
-
-    const ctx = gsap.context(() => {
-      gsap.from(cards, {
-        y: 35,
-        opacity: 0,
-        stagger: 0.08,
-        duration: 0.65,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: gridRef.current,
-          start: "top 88%",
-          toggleActions: "play none none none",
-        },
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <section ref={sectionRef} className="bg-white py-14 lg:py-20 px-6 lg:px-12 border-b-2 border-black overflow-hidden">
+    <section className="bg-white py-14 lg:py-20 px-6 lg:px-12 border-b-2 border-black">
       <div className="container mx-auto max-w-[1240px]">
         
         {/* Eyebrow & Meaningful Capabilities Statement */}
@@ -136,12 +106,16 @@ export default function Toolkit() {
           </span>
         </div>
 
-        {/* 6-Column Interconnected Neo-Brutalist Grid with GSAP Scroll Trigger */}
-        <div ref={gridRef} className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-0 bg-black border-2 border-black shadow-[4px_4px_0px_0px_black]">
-          {credentials.map((item) => (
-            <div
+        {/* 6-Column Interconnected Neo-Brutalist Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-0 bg-black border-2 border-black shadow-[4px_4px_0px_0px_black]">
+          {credentials.map((item, index) => (
+            <motion.div
               key={item.name}
-              className="toolkit-card bg-white border border-black p-4 sm:p-5 flex flex-col justify-between min-h-[120px] group hover:bg-[#FFE730] transition-colors duration-200 cursor-default select-none"
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.05, duration: 0.3 }}
+              className="bg-white border border-black p-4 sm:p-5 flex flex-col justify-between min-h-[120px] group hover:bg-[#FFE730] transition-colors duration-200 cursor-default select-none"
             >
               <div className="flex items-center justify-between">
                 <span className="font-mono text-[9px] uppercase font-bold tracking-wider text-gray-500 group-hover:text-black transition-colors">
@@ -160,7 +134,7 @@ export default function Toolkit() {
                   {item.tag}
                 </p>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
