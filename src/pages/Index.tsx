@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import WelcomeLoader from "@/components/WelcomeLoader";
+import ScrollProgress from "@/components/ScrollProgress";
 import Header from "@/components/sections/Header";
 import Hero from "@/components/sections/Hero";
 import Toolkit from "@/components/sections/Toolkit";
@@ -17,6 +18,7 @@ const Index = () => {
   return (
     <>
       <WelcomeLoader onLoaded={() => setIsLoaded(true)} />
+      <ScrollProgress />
 
       {/* Page container with smooth curtain reveal & lift animation */}
       <motion.div

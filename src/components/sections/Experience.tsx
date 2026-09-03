@@ -1,5 +1,9 @@
 import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Experience() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -72,6 +76,30 @@ export default function Experience() {
     };
   }, []);
 
+  // GSAP ScrollTrigger for experience cards
+  useEffect(() => {
+    if (!rightColRef.current) return;
+
+    const cards = rightColRef.current.querySelectorAll(".experience-card");
+
+    const ctx = gsap.context(() => {
+      gsap.from(cards, {
+        y: 40,
+        opacity: 0,
+        stagger: 0.18,
+        duration: 0.75,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: rightColRef.current,
+          start: "top 82%",
+          toggleActions: "play none none none",
+        },
+      });
+    }, rightColRef);
+
+    return () => ctx.revert();
+  }, []);
+
   const skillsList = [
     "Billing & Invoicing",
     "Ledger Reconciliation",
@@ -82,7 +110,7 @@ export default function Experience() {
   ];
 
   return (
-    <section id="experience" className="py-20 lg:py-28 px-6 lg:px-12 border-b-2 border-black bg-white">
+    <section id="experience" className="py-20 lg:py-28 px-6 lg:px-12 border-b-2 border-black bg-white overflow-hidden">
       <div className="container mx-auto max-w-[1240px]" ref={containerRef}>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
           
@@ -118,27 +146,16 @@ export default function Experience() {
                 Professional History
               </div>
 
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                className="font-display font-black text-4xl sm:text-5xl lg:text-6xl leading-[0.95] tracking-tight text-black uppercase mb-0"
-              >
+              <h2 className="font-display font-black text-4xl sm:text-5xl lg:text-6xl leading-[0.95] tracking-tight text-black uppercase mb-0">
                 WORK
                 <br />
                 <span className="text-highlight">EXPERIENCE</span>
-              </motion.h2>
+              </h2>
 
               {/* Concise 1-2 line statement */}
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 }}
-                className="text-sm sm:text-base text-gray-700 leading-relaxed font-medium max-w-md"
-              >
+              <p className="text-sm sm:text-base text-gray-700 leading-relaxed font-medium max-w-md">
                 Hands-on background in financial operations, transactional reconciliation, and corporate accounting across hospitality and commercial trading.
-              </motion.p>
+              </p>
 
               {/* Skills Tags with Tactile Hover Effects */}
               <div className="flex flex-wrap gap-2.5 pt-2">
@@ -154,16 +171,11 @@ export default function Experience() {
             </div>
           </div>
 
-          {/* Right Column: Experience Cards with Clean Hierarchy */}
+          {/* Right Column: Experience Cards with GSAP ScrollTrigger Entrance */}
           <div ref={rightColRef} className="lg:col-span-7 flex flex-col gap-6">
             
             {/* Primary Role: Courtyard By Marriott (Clean Title Case & Realistic Metrics) */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="bg-white border-2 border-black p-7 sm:p-9 rounded-2xl shadow-[8px_10px_0px_0px_black] flex flex-col gap-6 relative hover:-translate-y-1 transition-transform"
-            >
+            <div className="experience-card bg-white border-2 border-black p-7 sm:p-9 rounded-2xl shadow-[8px_10px_0px_0px_black] flex flex-col gap-6 relative hover:-translate-y-1 transition-transform">
               {/* Header: Role Title in Title Case + Date Pill */}
               <div className="flex flex-wrap items-center justify-between gap-3 border-b border-black/10 pb-4">
                 <div>
@@ -207,16 +219,10 @@ export default function Experience() {
                   <span>Monitored operating expenditures to ensure full compliance with corporate financial governance policies.</span>
                 </li>
               </ul>
-            </motion.div>
+            </div>
 
             {/* Secondary Role: Shree Ambaji Traders (Softened Subtle Neutral Tone) */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="bg-[#FAF9F6] border-2 border-black/80 p-7 sm:p-9 rounded-2xl shadow-[5px_6px_0px_0px_black] flex flex-col gap-6 relative hover:-translate-y-1 transition-transform"
-            >
+            <div className="experience-card bg-[#FAF9F6] border-2 border-black/80 p-7 sm:p-9 rounded-2xl shadow-[5px_6px_0px_0px_black] flex flex-col gap-6 relative hover:-translate-y-1 transition-transform">
               {/* Header: Role Title in Title Case + Date Pill */}
               <div className="flex flex-wrap items-center justify-between gap-3 border-b border-black/10 pb-4">
                 <div>
@@ -256,7 +262,7 @@ export default function Experience() {
                   <span>Conducted regular balance reconciliations, preserving data integrity across wholesale customer accounts.</span>
                 </li>
               </ul>
-            </motion.div>
+            </div>
 
           </div>
 
