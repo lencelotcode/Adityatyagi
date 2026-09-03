@@ -69,7 +69,7 @@ export default function Footer() {
             {/* Left Column: Rotating Badge, 2-line Description & Tooltip Socials */}
             <div className="flex flex-col gap-6 max-w-full md:max-w-[460px] relative pt-16 sm:pt-20">
               
-              {/* Rotating Badge */}
+              {/* Rotating Badge with AT Monogram */}
               <div className="absolute top-0 left-0 w-20 h-20 sm:w-24 sm:h-24">
                 <motion.svg
                   className="absolute -left-[32px] -top-[32px] w-[96px] h-[96px]"
@@ -84,49 +84,41 @@ export default function Footer() {
                   <defs>
                     <path
                       id="footerCirclePath"
-                      d="M 66, 66 m -32, 0 a 32,32 0 1,1 64,0 a 32,32 0 1,1 -64,0"
+                      d="M 66, 66 m -48, 0 a 48,48 0 1,1 96,0 a 48,48 0 1,1 -96,0"
                     />
                   </defs>
-                  <text className="fill-[#F9D4F4] font-mono text-[8px] uppercase tracking-[0.275em] font-bold">
+                  <text className="fill-white font-mono text-[9.5px] font-bold uppercase tracking-[0.24em]">
                     <textPath href="#footerCirclePath" startOffset="0%">
-                      FINANCE • RECONCILE • REPORT • AUDIT •
+                      ADITYA &bull; TYAGI &bull; FINANCE &bull; PORTFOLIO &bull;
                     </textPath>
                   </text>
                 </motion.svg>
 
-                <motion.div
-                  className="absolute top-[16px] left-[16px] -translate-x-1/2 -translate-y-1/2 w-6 h-6 sm:w-8 sm:h-8 z-20 pointer-events-none"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.8, delay: 0.5 }}
-                >
-                  <img alt="" className="w-full h-full" src={imgSparklePink} />
-                </motion.div>
+                <div className="w-8 h-8 rounded-full bg-highlight border border-white flex items-center justify-center font-bold text-xs text-white shadow-[2px_2px_0px_0px_white]">
+                  AT
+                </div>
               </div>
 
-              {/* Exact Improved 1-2 Line Description */}
-              <p className="text-sm sm:text-base leading-relaxed text-gray-300 font-normal">
-                Finance-focused professional with experience in billing, invoicing, and ledger management.
-                <br className="hidden sm:inline" /> Currently pursuing MSc Finance at the University of Hull.
+              {/* 2-line description */}
+              <p className="text-gray-300 font-medium text-sm sm:text-base leading-relaxed">
+                MSc Accounting &amp; Finance candidate at the University of Hull. Specialized in financial operations, quantitative ledger modeling, and data-driven decision support.
               </p>
 
-              {/* Social Icons Row with Hover Tooltips & Micro-interactions */}
-              <div className="flex gap-4 items-center pt-2">
+              {/* Modern Rounded Social Icon Buttons with Tooltips */}
+              <div className="flex items-center gap-3 pt-2">
                 {socialIcons.map((item) => (
-                  <div key={item.label} className="relative group inline-flex items-center justify-center">
+                  <div key={item.label} className="relative group">
                     <a
                       href={item.href}
-                      download={item.download ? "Aditya_Tyagi_CV.pdf" : undefined}
                       target={item.href.startsWith("http") ? "_blank" : undefined}
                       rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                      download={item.download ? "Aditya_Tyagi_CV.pdf" : undefined}
                       aria-label={item.label}
-                      className="text-[#F9D4F4] hover:text-highlight transition-all duration-200 p-1.5 rounded-md hover:scale-115 transform inline-block cursor-pointer"
+                      className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border border-white/30 bg-neutral-900 flex items-center justify-center text-white hover:bg-highlight hover:text-white hover:border-highlight hover:scale-105 transition-all duration-200 cursor-pointer shadow-[2px_2px_0px_0px_rgba(255,255,255,0.1)]"
                     >
                       {item.icon}
                     </a>
-
-                    {/* Floating Tooltip */}
-                    <span className="absolute -top-8 px-2.5 py-1 bg-white text-black font-mono text-[10px] font-bold rounded shadow-[2px_2px_0px_0px_black] opacity-0 group-hover:opacity-100 group-hover:-translate-y-1 transition-all duration-200 pointer-events-none whitespace-nowrap z-30">
+                    <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-white text-black text-[11px] font-mono font-bold px-2.5 py-1 rounded shadow whitespace-nowrap z-30">
                       {item.tooltip}
                     </span>
                   </div>
